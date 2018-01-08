@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI_Demo2.Controllers;
 
 namespace WebAPI_Homework2.Controllers
 {
@@ -12,35 +13,38 @@ namespace WebAPI_Homework2.Controllers
     {
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public JsonResult Get()
         {
             
-            return new string[] { "Lecturer1", "Lecture2" };
+            return new JsonResult(DataStore.Instance().GetAllLecturers());
         }
 
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public JsonResult Get(int id)
         {
-            return "value";
+            return new JsonResult(DataStore.Instance().GetCoursesByID(id));
         }
 
 
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Lecturer newLecturer)
         {
+            DataStore.Instance().AddLecturer(newLecturer);
         }
 
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut()]
+        public void Put(int id, [FromBody] Lecturer updateLecturer)
         {
+            DataStore.Instance().UpdateLecturer(updateLecturer);
         }
 
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            DataStore.Instance().DeleteLecturer(id);
         }
     }
 }

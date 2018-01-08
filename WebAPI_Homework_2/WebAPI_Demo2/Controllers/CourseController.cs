@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI_Demo2.Controllers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,33 +15,36 @@ namespace WebAPI_Homework2.Controllers
     {
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public JsonResult Get()
         {
-            return new string[] { "Course 1", "Course 2" };
+            return new JsonResult(DataStore.Instance().GetAllCourses());
         }
 
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public JsonResult Get(int id)
         {
-            return "value";
+            return new JsonResult(DataStore.Instance().GetCourseByID(id));
         }
 
 
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Course newCourse)
         {
+            DataStore.Instance().AddCourse(newCourse);
         }
 
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Course updateCourse)
         {
+            DataStore.Instance().UpdateCourse(updateCourse);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            DataStore.Instance().DeleteCourse(id);
         }
     }
 }
