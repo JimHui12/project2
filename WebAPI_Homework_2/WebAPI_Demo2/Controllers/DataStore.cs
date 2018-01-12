@@ -144,7 +144,7 @@ namespace WebAPI_Demo2.Controllers
             return result;
         }
 
-        public Lecturer GetCoursesByID(int Id)
+        public Lecturer GetLecturersByID(int Id)
         {
             Lecturer result = _Lecturers.FirstOrDefault((Lecturer arg) => arg.Id == Id);
             return result;

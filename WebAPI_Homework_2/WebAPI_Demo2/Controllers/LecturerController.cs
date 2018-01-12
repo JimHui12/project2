@@ -23,7 +23,7 @@ namespace WebAPI_Homework2.Controllers
         [HttpGet("{id}")]
         public JsonResult Get(int id)
         {
-            return new JsonResult(DataStore.Instance().GetCoursesByID(id));
+            return new JsonResult(DataStore.Instance().GetLecturersByID(id));
         }
 
 
